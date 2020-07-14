@@ -1,12 +1,26 @@
-wget https://raw.githubusercontent.com/GitHub30/gdrive.sh/master/gdrive.sh
-curl gdrive.sh | bash -s 14JjsYRzPOEHeeiXmEAZaN_PTWzBFHc2g
-tar -xvzf geodata.tar.gz
+safe_workon() {
+  source "$HOME/.virtualenvs/$1/bin/activate"
+}
+if ! [ -f gdrive.sh ]; then
+    echo '# downloading gdrive.sh ...'
+    wget https://raw.githubusercontent.com/GitHub30/gdrive.sh/master/gdrive.sh
+fi
+if ! [ -f geodata.tar.gz ]; then
+    echo '# downloading maps compressed file ...'
+    curl gdrive.sh | bash -s 14JjsYRzPOEHeeiXmEAZaN_PTWzBFHc2g
+fi
+if ! [ -d geodata ]; then
+    tar -xvzf geodata.tar.gz
+fi
+if ! [ -d ~/.virtualenvs/spatial ]; then
+    virtualenv ~/.virtualenvs/spatial
+fi
+sleep 5
+safe_workon spatial
+pip install -r requirements.txt
 docker-compose up -d
-# docker cp geodata spatialdb:/
-# docker exec spatialdb apt update
-# docker exec spatialdb apt install -y postgis
 echo "waiting..."
-sleep 20
+sleep 10
 echo "setup postgis..."
 docker exec spatialdb createdb --username=postgres spatialdb
 docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis;"
