@@ -19,7 +19,7 @@ def heartbeat():
 
 @app.route("/")
 def hello():
-    message = "Hello, World"
+    message = "Spatial Sample"
     return render_template('index.html', message=message)
 
 def departamentos(gid):
