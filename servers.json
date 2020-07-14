@@ -1,0 +1,13 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "SpatialDB",
+            "Group": "Servers",
+            "Port": 5432,
+            "Username": "postgres",
+            "Host": "spatialdb",
+            "SSLMode": "prefer",
+            "MaintenanceDB": "postgres"
+        }
+    }
+}
