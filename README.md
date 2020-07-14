@@ -1,5 +1,11 @@
 ## Setup
-sh setup.sh
+`sh setup.sh`
+
+## Run
+```
+workon spatial
+python app/spatial.py
+```
 
 ## Maps of Peru
 - https://www.geogpsperu.com/2014/03/base-de-datos-peru-shapefile-shp-minam.html

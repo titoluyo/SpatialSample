@@ -1,5 +1,4 @@
-import flask
-from flask import request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import psycopg2
 from postgis.psycopg import register
@@ -9,16 +8,19 @@ from postgis import LineString, Point, Polygon, MultiLineString, MultiPolygon
 connection = psycopg2.connect("host=localhost port=5433 dbname=spatialdb user=postgres password=P@xxw0rd")
 register(connection)
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
+
 CORS(app)
 app.config["DEBUG"] = True
 
-print(__name__)
+@app.route("/heartbeat")
+def heartbeat():
+    return jsonify({"status": "healthy"})
 
-
-def index():
-    return "Hello World"
-
+@app.route("/")
+def hello():
+    message = "Hello, World"
+    return render_template('index.html', message=message)
 
 def departamentos(gid):
     cursor = connection.cursor()
@@ -46,7 +48,7 @@ def provincias(iddpto):
     return jsonify(coll)
 
 
-app.add_url_rule('/', 'index', index)
+# app.add_url_rule('/', 'index', index)
 app.add_url_rule('/departamentos/<int:gid>', 'departamentos', departamentos)
 app.add_url_rule('/provincias/<iddpto>', 'provincias', provincias)
 
