@@ -5,7 +5,7 @@ from postgis.psycopg import register
 from postgis import LineString, Point, Polygon, MultiLineString, MultiPolygon
 
 
-connection = psycopg2.connect("host=localhost port=5433 dbname=spatialdb user=postgres password=P@xxw0rd")
+connection = psycopg2.connect("host=localhost port=5433 dbname=spatialdb user=postgres password=pub")
 register(connection)
 
 app = Flask(__name__)

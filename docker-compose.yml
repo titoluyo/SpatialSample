@@ -28,7 +28,7 @@ services:
       - 80:80
     volumes: 
       - ./servers.json:/pgadmin4/servers.json
-      # - ./external:/var/lib/pgadmin/storage/tluyo_wordstream.com/external
+      # - ./external:/var/lib/pgadmin/storage/user_mail.com/external
     environment: 
       PGADMIN_DEFAULT_EMAIL: "user@mail.com"
       PGADMIN_DEFAULT_PASSWORD: "pub"
