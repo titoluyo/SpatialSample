@@ -1,25 +1,22 @@
-/*
-var map;
-function initialize() {
-    var canvas = document.getElementById('map-canvas');
-    var mapOptions = {
-        zoom: 16,
-        //center: {lat: -12.100757399999999, lng: -77.0275498}
-        center : new google.maps.LatLng(-12.100757399999999, -77.0275498)
+function sendPost(url, data, callback) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            callback(json);
+        }
     };
-    map = new google.maps.Map(canvas,mapOptions);
+    let jsonData = JSON.stringify(data);
+    xhr.send(jsonData);
 }
-google.maps.event.addDomListener(window, 'load', initialize);
-*/
 
-
+var lima = {lat: -12.1007574, lng: -77.0275498};
 var map;
 function initMap() {
-    let lima = {lat: -12.1007574, lng: -77.0275498};
     map = new google.maps.Map(document.getElementById("map"), {
         center: lima,
-        // center : new google.maps.LatLng(-12.1007574, -77.0275498),
-        // center: { lat: -34.397, lng: 150.644 },
         zoom: 8
     });
     var marker = new google.maps.Marker({position: lima, map: map});
