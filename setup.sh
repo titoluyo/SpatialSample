@@ -13,7 +13,7 @@ if ! [ -d geodata ]; then
     tar -xvzf geodata.tar.gz
 fi
 if ! [ -d ~/.virtualenvs/spatial ]; then
-    virtualenv ~/.virtualenvs/spatial
+    virtualenv -p `which python3` ~/.virtualenvs/spatial
 fi
 sleep 5
 safe_workon spatial
