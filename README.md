@@ -11,7 +11,6 @@
 
 ```
 workon spatial
-python app/spatial.py
 ```
 
 ## Maps of Peru

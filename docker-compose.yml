@@ -48,10 +48,10 @@ services:
   dockerpython:
     image: dockerpython
     build:
-      context: app/.
+      context: app/server/.
       dockerfile: Dockerfile
     volumes:
-      - ./app/:/app
+      - ./app/server/:/app
     ports:
       - 5000:5000
     networks:
