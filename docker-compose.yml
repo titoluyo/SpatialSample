@@ -21,17 +21,52 @@ services:
       - ./geodata:/geodata
       - pg-data:/var/lib/postgresql/data
     container_name: spatialdb
+    networks:
+      - net-spatial
+    deploy:
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: '80M'
+        reservations:
+          cpus: '0.05'
+          memory: '40M'
   
-  pgadmin:
-    image: dpage/pgadmin4
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   ports:
+  #     - 80:80
+  #   volumes: 
+  #     - ./servers.json:/pgadmin4/servers.json
+  #     # - ./external:/var/lib/pgadmin/storage/user_mail.com/external
+  #   environment: 
+  #     PGADMIN_DEFAULT_EMAIL: "user@mail.com"
+  #     PGADMIN_DEFAULT_PASSWORD: "pub"
+  #   networks:
+  #     - net-spatial
+
+  dockerpython:
+    image: dockerpython
+    build:
+      context: app/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./app/:/app
     ports:
-      - 80:80
-    volumes: 
-      - ./servers.json:/pgadmin4/servers.json
-      # - ./external:/var/lib/pgadmin/storage/user_mail.com/external
-    environment: 
-      PGADMIN_DEFAULT_EMAIL: "user@mail.com"
-      PGADMIN_DEFAULT_PASSWORD: "pub"
+      - 5000:5000
+    networks:
+      - net-spatial
+    deploy:
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: '80M'
+        reservations:
+          cpus: '0.05'
+          memory: '40M'
+
+networks:
+  net-spatial:
 
 volumes: 
   # db-storage:

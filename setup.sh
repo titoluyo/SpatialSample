@@ -17,7 +17,7 @@ if ! [ -d ~/.virtualenvs/spatial ]; then
 fi
 sleep 5
 safe_workon spatial
-pip install -r requirements.txt
+pip install -r app/requirements.txt
 docker-compose up -d
 echo "waiting..."
 sleep 10

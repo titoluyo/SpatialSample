@@ -5,7 +5,7 @@ from postgis.psycopg import register
 from postgis import LineString, Point, Polygon, MultiLineString, MultiPolygon
 
 
-connection = psycopg2.connect("host=localhost port=5433 dbname=spatialdb user=postgres password=pub")
+connection = psycopg2.connect("host=spatialdb port=5432 dbname=spatialdb user=postgres password=pub")
 register(connection)
 
 app = Flask(__name__)
@@ -21,6 +21,14 @@ def heartbeat():
 def hello():
     message = "Spatial Sample"
     return render_template('index.html', message=message)
+
+@app.route("/location", methods=['POST'])
+def location():
+    loc = {
+        'lat': request.json['lat'],
+        'lng': request.json['lng'],
+    }
+
 
 def departamentos(gid):
     cursor = connection.cursor()
@@ -54,6 +62,6 @@ app.add_url_rule('/provincias/<iddpto>', 'provincias', provincias)
 
 # app.view_functions['index'] = index
 
-app.run()
-
-connection.close()
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
+    connection.close()
