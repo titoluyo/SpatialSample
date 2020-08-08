@@ -56,6 +56,8 @@ services:
       - 5000:5000
     networks:
       - net-spatial
+    depends_on:
+      - db-postgis
     deploy:
       resources:
         limits:
@@ -64,6 +66,16 @@ services:
         reservations:
           cpus: '0.05'
           memory: '40M'
+  
+  react:
+    image: mapapp
+    build:
+      context: app/client/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./app/client/:/app
+    ports:
+      - 3000:5000
 
 networks:
   net-spatial:
