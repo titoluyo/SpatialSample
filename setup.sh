@@ -17,8 +17,9 @@ if ! [ -d ~/.virtualenvs/spatial ]; then
 fi
 sleep 5
 safe_workon spatial
-pip install -r app/requirements.txt
-docker-compose up -d
+pip install -r app/server/requirements.txt
+
+docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
 echo "waiting..."
 sleep 10
 echo "setup postgis..."
