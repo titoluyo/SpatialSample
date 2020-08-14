@@ -5,7 +5,7 @@ from postgis.psycopg import register
 from postgis import LineString, Point, Polygon, MultiLineString, MultiPolygon
 
 
-connection = psycopg2.connect("host=spatialdb port=5432 dbname=spatialdb user=postgres password=pub")
+connection = psycopg2.connect("host=localhost port=5433 dbname=spatialdb user=postgres password=pub")
 register(connection)
 
 app = Flask(__name__)
@@ -40,6 +40,7 @@ def departamentos(gid):
 
 
 def provincias(iddpto):
+    print(f'provincias, iddpto:{iddpto}')
     cursor = connection.cursor()
     strsql = f"SELECT ST_ForcePolygonCW(geom), provincia FROM provincias WHERE iddpto = '{iddpto}';";
     cursor.execute(strsql)

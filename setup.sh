@@ -19,7 +19,8 @@ sleep 5
 safe_workon spatial
 pip install -r app/server/requirements.txt
 
-docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+#docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
+docker-compose up -d
 echo "waiting..."
 sleep 10
 echo "setup postgis..."
