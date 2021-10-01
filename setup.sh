@@ -1,3 +1,8 @@
+# # req (virtualenv)
+# sudo apt-get install virtualenv
+# # req (psycopg2)
+# sudo apt-get install --reinstall libpq-dev
+
 safe_workon() {
   source "$HOME/.virtualenvs/$1/bin/activate"
 }

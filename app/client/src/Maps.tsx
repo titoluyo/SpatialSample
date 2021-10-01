@@ -6,7 +6,7 @@ import {
   //  InfoWindow,
   } from "@react-google-maps/api";
 
-const libraries = ["places"];
+// const libraries = ["places"];
 const mapContainerStyle = {
 height: "100vh",
 width: "100vw",
@@ -19,9 +19,10 @@ lng: -77.029075,
 function Maps() {
     console.log('process.env.REACT_APP_GOOGLE_MAPS_API_KEY');
     console.log(process.env.REACT_APP_GOOGLE_MAPS_API_KEY);
+    var gkey: string = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || '';
     const { isLoaded, loadError } = useLoadScript({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-        libraries,
+        googleMapsApiKey: gkey,
+        // libraries: libraries,
     });
 
     if (loadError) return <div>Error</div>;

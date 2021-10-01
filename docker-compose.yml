@@ -45,27 +45,27 @@ services:
   #   networks:
   #     - net-spatial
 
-  # dockerpython:
-  #   image: dockerpython
-  #   build:
-  #     context: app/server/.
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - ./app/server/:/app
-  #   ports:
-  #     - 5000:5000
-  #   networks:
-  #     - net-spatial
-  #   depends_on:
-  #     - db-postgis
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         cpus: '0.10'
-  #         memory: '80M'
-  #       reservations:
-  #         cpus: '0.05'
-  #         memory: '40M'
+  dockerpython:
+    image: dockerpython
+    build:
+      context: app/server/.
+      dockerfile: Dockerfile
+    volumes:
+      - ./app/server/:/app
+    ports:
+      - 5000:5000
+    networks:
+      - net-spatial
+    depends_on:
+      - db-postgis
+    deploy:
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: '80M'
+        reservations:
+          cpus: '0.05'
+          memory: '40M'
   
   react:
     image: mapapp
