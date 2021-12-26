@@ -1,7 +1,8 @@
-FROM node:12-alpine
+FROM node:14-alpine
 RUN yarn global add serve
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --no-optional
+RUN npm update chokidar
 EXPOSE 3000
 CMD ["npm","start"]

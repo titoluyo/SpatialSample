@@ -4,3 +4,4 @@ geodata/
 gdrive.sh
 geodata.tar.gz
 app/client/.env
+spatial/
