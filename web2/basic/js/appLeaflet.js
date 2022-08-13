@@ -2,14 +2,14 @@ var pos = [-12.112665, -77.031341]
 
 var map = L.map('map').setView(pos, 16);
 
-var drawnItems = new L.FeatureGroup();
-map.addLayer(drawnItems);
-var drawControl = new L.Control.Draw({
-    edit: {
-        featureGroup: drawnItems
-    }
-});
-map.addControl(drawControl);
+// var drawnItems = new L.FeatureGroup();
+// map.addLayer(drawnItems);
+// var drawControl = new L.Control.Draw({
+//     edit: {
+//         featureGroup: drawnItems
+//     }
+// });
+// map.addControl(drawControl);
 
 /*
 var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -37,8 +37,10 @@ function showDepartamento() {
 function loadDepartamento(departamentoId) {
     console.log("loadDepartamento");
     console.log(departamentoId);
-    const urlBase = "https://localhost:7009";
-    let url = `${urlBase}/api/departamentos/${departamentoId}`;
+    // const urlBase = "https://localhost:7009";
+    // let url = `${urlBase}/api/departamentos/${departamentoId}`;
+    const urlBase = "http://localhost:5000";
+    let url = `${urlBase}/departamentos/${departamentoId}`;
     console.log(url);
     fetch(url).then((response) => {
         console.log("response");

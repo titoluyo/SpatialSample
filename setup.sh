@@ -59,11 +59,11 @@ if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep distrit
     echo "loading DISTRITOS"
     docker exec -i spatialdb bash -c "shp2pgsql /geodata/distritos/DISTRITOS.shp public.distritos | psql -h localhost -d spatialdb -U postgres"
 fi
-if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep usa_counties; then
-    echo "loading USA_COUNTIES"
-    docker exec -i spatialdb bash -c "shp2pgsql /geodata/USA_shp/USA_counties.shp public.usa_counties | psql -h localhost -d spatialdb -U postgres"
-fi
-if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep world_countries; then
-    echo "loading WORLD_COUNTRIES"
-    docker exec -i spatialdb bash -c "shp2pgsql /geodata/World_Countries/World_Countries.shp public.world_countries | psql -h localhost -d spatialdb -U postgres"
-fi
+# if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep usa_counties; then
+#     echo "loading USA_COUNTIES"
+#     docker exec -i spatialdb bash -c "shp2pgsql /geodata/USA_shp/USA_counties.shp public.usa_counties | psql -h localhost -d spatialdb -U postgres"
+# fi
+# if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep world_countries; then
+#     echo "loading WORLD_COUNTRIES"
+#     docker exec -i spatialdb bash -c "shp2pgsql /geodata/World_Countries/World_Countries.shp public.world_countries | psql -h localhost -d spatialdb -U postgres"
+# fi

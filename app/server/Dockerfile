@@ -13,17 +13,19 @@ ENV PYTHONUNBUFFERED 1
 ADD requirements.txt .
 RUN \
  apk add bash && \
+ apk add geos && \
  apk add --no-cache postgresql-libs && \
- apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
- python -m pip install -r requirements.txt --no-cache-dir && \
- apk --purge del .build-deps
+ apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev
+RUN python -m pip install -r requirements.txt --no-cache-dir
+RUN apk --purge del .build-deps
 
 WORKDIR /app
 # ADD . /app
 
-# Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
-RUN adduser -S appuser && chown -R appuser /app
-USER appuser
+# # Switching to a non-root user, please refer to https://aka.ms/vscode-docker-python-user-rights
+# RUN adduser -S appuser && chown -R appuser /app
+# USER appuser
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "spatial:app"]
+# CMD ["gunicorn", "--bind", "0.0.0.0:5000", "spatial:app"]
+CMD ["uvicorn", "spatial:app", "--host", "0.0.0.0", "--port", "5000"]

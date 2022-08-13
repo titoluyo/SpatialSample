@@ -35,7 +35,7 @@ function Maps() {
             center={center}
             >
                 <Marker
-                    key={`Miraflores`}
+                    key={`MyLocation`}
                     position={center}
                 >
                 </Marker>

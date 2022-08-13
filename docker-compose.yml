@@ -50,6 +50,7 @@ services:
     build:
       context: app/server/.
       dockerfile: Dockerfile
+    container_name: dockerpython
     volumes:
       - ./app/server/:/app
     ports:

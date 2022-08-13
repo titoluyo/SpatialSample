@@ -5,3 +5,9 @@ gdrive.sh
 geodata.tar.gz
 app/client/.env
 spatial/
+app/server/__pycache__
+terraform/.terraform
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/pattern.tfplan
+terraform_vars.sh
