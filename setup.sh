@@ -1,51 +1,17 @@
-# # req (virtualenv)
-# https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-# windows
-# py -m pip install --upgrade pip     # upgrade pip
-# py -m pip --version                 # check pip version
-# py -m pip install --user virtualenv # install virtualenv
-# py -m venv spatial                  # create virtualenv "spatial"
-# .\env\Scripts\activate              # activate virtualenv
-
-
-
-# # req (psycopg2)
-# sudo apt-get install --reinstall libpq-dev
-
-safe_workon() {
-  source "./$1/Scripts/activate"
-}
-if ! [ -f gdrive.sh ]; then
-    echo '# downloading gdrive.sh ...'
-    wget https://raw.githubusercontent.com/GitHub30/gdrive.sh/master/gdrive.sh
-fi
-if ! [ -f geodata.tar.gz ]; then
-    echo '# downloading maps compressed file ...'
-    curl gdrive.sh | bash -s 14JjsYRzPOEHeeiXmEAZaN_PTWzBFHc2g
-fi
-if ! [ -d geodata ]; then
-    tar -xvzf geodata.tar.gz
-fi
-# if ! [ -d ~/.virtualenvs/spatial ]; then
-#     virtualenv -p `which python3` ~/.virtualenvs/spatial
-# fi
-sleep 5
-# echo '# activating virtual env spatial'
-# safe_workon spatial
-# echo '# installing requirements ...'
-# pip install -r app/server/requirements.txt
+#!/bin/bash
+set -e
 
 echo '# docker compose up'
 #docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
 docker-compose up -d
 echo "waiting..."
-sleep 10
+sleep 15
 echo "setup postgis..."
 if ! docker exec spatialdb psql -U postgres -c "\l" | grep spatialdb; then
     docker exec spatialdb createdb --username=postgres spatialdb
-    docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis;"
-    docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis_topology;"
 fi
+docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis;"
+docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis_topology;"
 echo "loading maps ..."
 if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep departamentos; then
     echo "loading DEPARTAMENTOS"

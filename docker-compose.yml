@@ -1,24 +1,15 @@
 version: "3"
 services:
-  # db:
-  #   image: "mcr.microsoft.com/mssql/server"
-  #   ports:
-  #     - 1433:1433
-  #   environment:
-  #       SA_PASSWORD: "pub"
-  #       ACCEPT_EULA: "Y"
-  #   volumes: 
-  #     - db-storage:/var/opt/sql
-  
   db-postgis:
-    # image: postgis/postgis
-    build: .
+    build:
+      context: db/.
+      dockerfile: Dockerfile
+    image: mypostgis
     ports:
       - 5432:5432
     environment: 
       POSTGRES_PASSWORD: "pub"
     volumes: 
-      - ./geodata:/geodata
       - pg-data:/var/lib/postgresql/data
     container_name: spatialdb
     networks:
@@ -32,19 +23,6 @@ services:
           cpus: '0.05'
           memory: '40M'
   
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   ports:
-  #     - 80:80
-  #   volumes: 
-  #     - ./servers.json:/pgadmin4/servers.json
-  #     # - ./external:/var/lib/pgadmin/storage/user_mail.com/external
-  #   environment: 
-  #     PGADMIN_DEFAULT_EMAIL: "user@mail.com"
-  #     PGADMIN_DEFAULT_PASSWORD: "pub"
-  #   networks:
-  #     - net-spatial
-
   dockerpython:
     image: dockerpython
     build:
@@ -80,6 +58,32 @@ services:
       - /app/node_modules
     ports:
       - 3000:3000
+  
+  client-vanillajs:
+    image: nginx
+    container_name: vanillajs
+    volumes:
+      - ./app/client_vanillajs/dist/:/usr/share/nginx/html
+    ports:
+      - 8088:80
+    networks:
+      - net-spatial
+    depends_on:
+      - dockerpython
+    
+
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   ports:
+  #     - 80:80
+  #   volumes: 
+  #     - ./servers.json:/pgadmin4/servers.json
+  #     # - ./external:/var/lib/pgadmin/storage/user_mail.com/external
+  #   environment: 
+  #     PGADMIN_DEFAULT_EMAIL: "user@mail.com"
+  #     PGADMIN_DEFAULT_PASSWORD: "pub"
+  #   networks:
+  #     - net-spatial
 
 networks:
   net-spatial:
