@@ -60,16 +60,21 @@ services:
       - 3000:3000
   
   client-vanillajs:
-    image: nginx
+    image: vanillajs
+    build: 
+      context: app/client_vanillajs/.
+      dockerfile: Dockerfile
     container_name: vanillajs
-    volumes:
-      - ./app/client_vanillajs/dist/:/usr/share/nginx/html
+    # volumes:
+    #   - ./app/client_vanillajs/dist/:/usr/share/nginx/html
     ports:
       - 8088:80
+    environment:
+      - NGINX_PORT=80
     networks:
       - net-spatial
     depends_on:
-      - dockerpython
+      - dockerpython           
     
 
   # pgadmin:
