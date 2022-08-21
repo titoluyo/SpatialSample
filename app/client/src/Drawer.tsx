@@ -160,7 +160,8 @@ export default function PersistentDrawerLeft() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Maps styles={{ container: { height: "100vh", width: "100vw" } }}></Maps>
+        {/* <Maps styles={{ container: { height: "100vh", width: "100vw" } }}></Maps> */}
+        <Maps></Maps>
       </main>
     </div>
   );

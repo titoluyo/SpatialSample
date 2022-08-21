@@ -65,8 +65,6 @@ services:
       context: app/client_vanillajs/.
       dockerfile: Dockerfile
     container_name: vanillajs
-    # volumes:
-    #   - ./app/client_vanillajs/dist/:/usr/share/nginx/html
     ports:
       - 8088:80
     environment:

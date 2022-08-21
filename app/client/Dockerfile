@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:16-alpine
 RUN yarn global add serve
 WORKDIR /app
 COPY package*.json ./
