@@ -41,25 +41,25 @@ services:
       resources:
         limits:
           cpus: '0.10'
-          memory: '80M'
+          memory: '160M'
         reservations:
           cpus: '0.05'
           memory: '40M'
   
   react:
-    image: mapapp
+    image: rectapp
     build:
-      context: app/client/.
+      context: app/client_react/
       dockerfile: Dockerfile
-    container_name: mapapp
+    container_name: reactapp
     stdin_open: true
     volumes:
-      - ./app/client/:/app
+      - ./app/client_react/:/app
       - /app/node_modules
     ports:
-      - 3000:3000
+      - 3000:80
   
-  client-vanillajs:
+  vanillajs:
     image: vanillajs
     build: 
       context: app/client_vanillajs/.
@@ -72,7 +72,16 @@ services:
     networks:
       - net-spatial
     depends_on:
-      - dockerpython           
+      - dockerpython
+
+  basic:
+    image: nginx
+    container_name: basic
+    ports:
+      - 8080:80
+    volumes:
+      - ./app/basic:/usr/share/nginx/html
+
     
 
   # pgadmin:
