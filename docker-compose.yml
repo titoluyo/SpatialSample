@@ -27,7 +27,7 @@ services:
     image: dockerpython
     build:
       context: app/server/.
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.ubuntu
     container_name: dockerpython
     volumes:
       - ./app/server/:/app

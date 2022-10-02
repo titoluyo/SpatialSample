@@ -4,6 +4,11 @@ RUN apt-get update && \
     apt-get install -y postgis curl
 
 RUN \
+    echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen en-US.UTF-8
+RUN locale
+
+RUN \
 fileid="14JjsYRzPOEHeeiXmEAZaN_PTWzBFHc2g" && \
 filename="geodata.tar.gz" && \
 html=`curl -c ./cookie -s -L "https://drive.google.com/uc?export=download&id=${fileid}"` &&\
