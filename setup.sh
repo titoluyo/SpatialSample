@@ -10,8 +10,12 @@ echo "setup postgis..."
 if ! docker exec spatialdb psql -U postgres -c "\l" | grep spatialdb; then
     docker exec spatialdb createdb --username=postgres spatialdb
 fi
-docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis;"
-docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis_topology;"
+if ! docker exec spatialdb psql --username=postgres -d spatialdb -t -c "SELECT extname FROM pg_extension WHERE extname='postgis';" | grep postgis; then
+    docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis;"
+fi
+if ! docker exec spatialdb psql --username=postgres -d spatialdb -t -c "SELECT extname FROM pg_extension WHERE extname='postgis_topology';" | grep postgis_topology; then
+    docker exec spatialdb psql --username=postgres -d spatialdb -c "CREATE EXTENSION postgis_topology;"
+fi
 echo "loading maps ..."
 if ! docker exec spatialdb psql -U postgres -d spatialdb -c "\dt" | grep departamentos; then
     echo "loading DEPARTAMENTOS"
