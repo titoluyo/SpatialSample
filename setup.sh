@@ -3,7 +3,7 @@ set -e
 
 echo '# docker compose up'
 #docker-compose -f docker-compose.yml -f docker-compose.debug.yml up -d
-docker-compose up -d
+docker compose up -d
 echo "waiting..."
 sleep 15
 echo "setup postgis..."

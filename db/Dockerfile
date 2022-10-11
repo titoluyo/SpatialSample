@@ -1,12 +1,14 @@
 FROM postgis/postgis:13-3.2
-RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get install -y postgis curl
 
 RUN \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen en-US.UTF-8
 RUN locale
+
+RUN apt-get update 
+RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get -y upgrade
+RUN apt-get install -y postgis curl
 
 RUN \
 fileid="14JjsYRzPOEHeeiXmEAZaN_PTWzBFHc2g" && \
